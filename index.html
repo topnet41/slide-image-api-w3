@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <div class="container">
+        <div style="width: 100%;">
+            <!-- Slideshow container -->
+            <div class="slideshow-container" id="content">
+
+
+                <!-- Next and previous buttons -->
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            </div>
+            <br>
+
+            <!-- The dots/circles -->
+            <div style="text-align:center" id="dots"></div>
+        </div>
+    </div>
+
+
+    <script>
+        let content = document.getElementById('content');
+        let dots = document.getElementById('dots');
+        let slideIndex = 1;
+        getItems();
+
+        // Next/previous controls
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        // Thumbnail image controls
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            let dots = document.getElementsByClassName("dot");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+        }
+
+        function getItems() {
+            fetch('https://fakestoreapi.com/products')
+                .then(res => res.json())
+                .then(items => {
+                    items.map((item, index) => {
+                        let slides = document.createElement('div');
+                        let img = document.createElement('img');
+                        let dot = document.createElement('span');
+                        dot.className = "dot"
+                        dot.addEventListener('click', (even) => {
+                            currentSlide(index + 1);
+                        })
+                        slides.setAttribute('id', 'slide-custom');
+                        slides.className = "mySlides fade";
+                        img.setAttribute("src", item.image);
+                        if (index == 0) { slides.style.display = 'block', dot.classList.add("active") };
+                        dots.appendChild(dot);
+                        content.appendChild(slides);
+                        slides.appendChild(img);
+                    })
+                })
+        }
+    </script>
+
+</body>
+
+</html>
