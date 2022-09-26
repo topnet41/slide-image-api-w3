@@ -70,6 +70,10 @@
                         let slides = document.createElement('div');
                         let img = document.createElement('img');
                         let dot = document.createElement('span');
+                        let number = document.createElement('div')
+                        let caption = document.createElement('div')
+                        number.className = 'numbertext';
+                        caption.className = 'text';
                         dot.className = "dot"
                         dot.addEventListener('click', (even) => {
                             currentSlide(index + 1);
@@ -80,7 +84,11 @@
                         if (index == 0) { slides.style.display = 'block', dot.classList.add("active") };
                         dots.appendChild(dot);
                         content.appendChild(slides);
+                        number.appendChild(document.createTextNode((index+1)+' / '+items.length))
+                        caption.appendChild(document.createTextNode(item.title))
+                        slides.appendChild(number)
                         slides.appendChild(img);
+                        slides.appendChild(caption)
                     })
                 })
         }
