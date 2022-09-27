@@ -29,6 +29,20 @@
         </div>
     </div>
 
+    <div class="modal" id="modal" >
+        <div class="bg" onclick="cloneModal()"></div>
+        <div class="clone" onclick="cloneModal()">X</div>
+        <div class="content">
+            <img id="img" alt="">
+            <div class="context">
+                <div class="title" id="title"></div>
+                <div class="cat" id="cat"></div>
+                <div class="price" id="price"></div>
+                <div class="desc" id="desc"></div>
+            </div>
+        </div>
+    </div>
+
 
     <script>
         let content = document.getElementById('content');
@@ -75,8 +89,11 @@
                         number.className = 'numbertext';
                         caption.className = 'text';
                         dot.className = "dot"
-                        dot.addEventListener('click', (even) => {
+                        dot.addEventListener('click', () => {
                             currentSlide(index + 1);
+                        })
+                        slides.addEventListener("click", () => {
+                            getItem(item.id);
                         })
                         slides.setAttribute('id', 'slide-custom');
                         slides.className = "mySlides fade";
@@ -84,13 +101,32 @@
                         if (index == 0) { slides.style.display = 'block', dot.classList.add("active") };
                         dots.appendChild(dot);
                         content.appendChild(slides);
-                        number.appendChild(document.createTextNode((index+1)+' / '+items.length))
+                        number.appendChild(document.createTextNode((index + 1) + ' / ' + items.length))
                         caption.appendChild(document.createTextNode(item.title))
                         slides.appendChild(number)
                         slides.appendChild(img);
                         slides.appendChild(caption)
                     })
                 })
+        }
+
+        function cloneModal(){
+            modal.classList.remove('open')
+        }
+
+        function getItem(id) {
+            fetch('https://fakestoreapi.com/products/'+id)
+                .then(res => res.json())
+                .then(item => {
+                    let modal = document.getElementById('modal')
+                    let image = document.getElementById('img')
+                    modal.classList.add('open')
+                    image.setAttribute('src',item.image)
+                    document.getElementById('title').innerHTML = item.title
+                    document.getElementById('cat').innerHTML = item.category
+                    document.getElementById('price').innerHTML = item.price + ' Rating ' + item.rating.rate + ' Count ' + item.rating.count
+                    document.getElementById('desc').innerHTML = item.description
+                 });
         }
     </script>
 
