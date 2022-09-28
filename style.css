@@ -108,7 +108,28 @@ img{
   to {opacity: 1}
 }
 
+header{
+  padding: 50px;
+}
 
+.btn-custom{
+  background-color: transparent;
+  width: 40px;
+  height: 32px;
+  box-shadow: none;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-custom .line{
+  position: relative;
+  display: block;
+  border-top: 2px solid #fff;
+  border-radius: 3px;
+}
+
+.btn-custom .line:first-child{top: -5px;}
+.btn-custom .line:last-child{bottom: -5px;}
 
 .modal{
   position: fixed;
@@ -187,4 +208,69 @@ img{
   color: #fff;
   font-size: 22px;
   cursor: pointer;
+}
+
+
+.modal-menu{
+  position: fixed;
+  visibility: hidden;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 999;
+  opacity: 0;
+  transition: .3s ease;
+}
+
+.modal-menu.open{
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal-menu.open .nav-menu{ 
+  transform: translateX(0);
+}
+
+.modal-menu .bg{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: rgba(0,0,0,0.8);
+}
+
+.modal-menu .nav-menu{
+  position: relative;
+  z-index: 999;
+  width: 100%;
+  max-width: 400px;
+  height: 100vh;
+  padding: 30;
+  width: 100%;
+  min-width: 300px;
+  padding: 21px;
+  background-color: #fff;
+  transform: translateX(-100%);
+  transition: .3s ease;
+}
+
+.modal-menu .nav-menu .clone{
+  position: absolute;
+  right: 18px;
+  cursor: pointer;
+}
+
+.modal-menu ul{
+  list-style: none;
+}
+
+.modal-menu a{
+  color: #000;
+  text-decoration: none;
+  transition: .3s ease;
+}
+
+.modal-menu a:hover{
+  color: rgb(105, 92, 92);
 }
